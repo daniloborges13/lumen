@@ -1,6 +1,10 @@
 <?php
 
+namespace App\Models;
 namespace App\Http\Controllers;
+
+use App\Models\ClienteModel;
+use Illuminate\Http\Request;
 
 class appFoodController extends Controller
 {
@@ -9,16 +13,19 @@ class appFoodController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-    
-    }
+    public function __construct(){}
 
-    public function getAll(){
-        return 'Daniel Developer';
-    }
-
-    public function get($id){
-        return "get " . $id;
+    public function store(Request $request){ 
+        $this->validate ($request, [
+            'nome' => 'required',
+            'email' => 'required|email|unique:clientes',
+            'senha'=> 'required',
+            'endereco'=> 'required',
+            'numero'=> 'required',
+            'bairro'=> 'required',
+            'complemento'=> 'required',
+            'celular'=> 'required'
+        ]); 
+        return ClienteModel::create($request->all());
     }
 }
