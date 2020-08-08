@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\ClienteModel;
 use Illuminate\Http\Request;
 
-class appFoodController extends Controller
+class CadastroClienteController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,4 +28,5 @@ class appFoodController extends Controller
         ]); 
         return ClienteModel::create($request->all());
     }
+
 }

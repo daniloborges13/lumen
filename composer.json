@@ -6,7 +6,8 @@
     "type": "project",
     "require": {
         "php": "^7.2.5",
-        "laravel/lumen-framework": "^7.0"
+        "laravel/lumen-framework": "^7.0",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",
@@ -35,8 +36,15 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "server": [
+            "php -S localhost:8000 -t public"
+        ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ]
+
+        
     }
+
+    
 }
