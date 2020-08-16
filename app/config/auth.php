@@ -7,11 +7,15 @@
         ],
 
         'guards' => [
-            'api' => [
-                'driver' => 'jwt',
-                'provider' => 'users',
+            'user' => [
+                'driver' => 'session',
+                'provider' => 'user',
             ],
         ],
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'client',
+         ],
 
         'providers' => [
             'users' => [
@@ -20,3 +24,4 @@
             ]
         ]
     ];
+    

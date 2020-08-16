@@ -5,5 +5,6 @@
             $router->get('/', 'CadastroClienteController@getAll');
             $router->post('/', 'CadastroClienteController@store');
             $router->post('/', 'AuthController@login');
+            $router->post('/', 'CadastroEmpresaController@store');
         });
     });

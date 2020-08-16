@@ -10,11 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new controller instance.
+   /**
+     * Create a new AuthController instance.
      *
      * @return void
      */
+    public function __construct(){
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
 
       /**
      * Get a JWT via given credentials.
@@ -22,44 +25,17 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request){
-        $this->validate ($request, [
-            'email' => 'required|email|unique:clientes',
-            'senha'=> 'required|confirmed',
-        ]); 
-
-        $input = $request->only('email', 'senha');
-
-        if( ! $token = Auth::attempt($input) ){
-            return response()-> json(['message' => 'Unauthorized'], 401);
-        }
         
-  
-    return $this->respondWithToken($token);
+        $request-> only('email', 'senha');
+
+        if (!$token = Auth::attempt($request)) {
+            return response()->json(['message'=> 'Não autorizado' ], 401);
+        }
+
+        return $this-> respondWithToken($token);
     }
 
      /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function logout()
-    {
-        Auth::logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh()
-    {
-        return $this->respondWithToken(Auth::refresh());
-    }
-
-    /**
      * Get the token array structure.
      *
      * @param  string $token
@@ -74,5 +50,4 @@ class AuthController extends Controller
             'expires_in' => Auth::factory()->getTTL() * 60
         ]);
     }
-
 }
